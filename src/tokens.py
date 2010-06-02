@@ -9,7 +9,7 @@ tokens = (
 	'COMMA',
 
 	# main
-	'SPARROW',
+	'MODULE',
 	'DOT',
 	
 	# blocks
@@ -94,10 +94,8 @@ t_INTEGER		= r"(\-)*[0-9]+"
 
 
 reserved_keywords = {
-	'flysparrow':	'SPARROW',
+	'module':	'MODULE',
 	'variables':		'VARIABLES',
-#'begin':	'BEGIN',
-#	'end':		'END',
 	
 	'if':		'IF',
 	'then':		'THEN',
@@ -166,8 +164,6 @@ t_ignore  = ' \t'
 # Error handling rule
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
-
-
 
 if __name__ == '__main__':
 	# Build the lexer

@@ -43,7 +43,7 @@ def main(options={},filename=False):
 	except Exception, e:
 		print "Error(2): %s" % e
 		sys.exit()
-
+	
 	if not hasattr(o,"ptr"):
 		print "Error compiling"
 		sys.exit()
@@ -62,10 +62,9 @@ def main(options={},filename=False):
 		p = Popen(['lli'],stdout=PIPE, stdin=PIPE)
 		sys.stdout.write(p.communicate(bytecode)[0])
 	else:		
-		o.to_bitcode(file("/tmp/middle.bc", "w"))
-		#os.system("llvm-as tmp/middle.bc | opt -std-compile-opts -f > tmp/optimized.bc")
-		os.system("llc -f -o=/tmp/middle.s /tmp/middle.bc")
-		os.system("gcc -o %s /tmp/middle.s" % options.filename)
+		o.to_bitcode(file("/tmp/bytecode.bc", "w"))
+		os.system("llc -f -o=/tmp/assembly.s /tmp/bytecode.bc")
+		os.system("gcc -o %s /tmp/assembly.s" % options.filename)
 	
 	
 if __name__ == '__main__':

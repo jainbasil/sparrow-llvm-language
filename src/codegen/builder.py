@@ -51,8 +51,6 @@ class Writer(object):
 			
 		if ast.type == "program":
 			mod_name = self.descend(ast.args[0])
-			if not mod_name:
-				mod_name = "sparrow_program"
 			
 			self.module = Module.new(mod_name)
 			stdio = add_stdio(self.module)

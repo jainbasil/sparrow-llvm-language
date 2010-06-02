@@ -16,9 +16,10 @@ precedence = (
 def p_program_start(t):
 	'program : header SEMICOLON block DOT'
 	t[0] = Node('program',t[1],t[3])
+	print str(t[0])
 
 def p_header(t):
-	'header : SPARROW identifier'
+	'header : MODULE identifier'
 	t[0] = t[2]
 	
 def p_block(t):
@@ -48,7 +49,7 @@ def p_variable_declaration(t):
 	t[0] = Node('var',t[2],t[1]) #node will be as "var_list",identifier, type
 	
 
-def p_procedure_or_function(t):
+def p_function(t):
 	"""function : function_declaration SEMICOLON function
 		| """
 		

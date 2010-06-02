@@ -1,4 +1,4 @@
-flysparrow HelloWorld;
+Module HelloWorld;
 {
-        writeln("Hello World!");
+	writeln("Hello,World");
 }.

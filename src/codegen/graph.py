@@ -25,6 +25,5 @@ def descend(node):
 	
 def s(node):
 	if node.__class__ != Node:
-		return "%s (%s)" % (node,id(node))
-	return "%s (%s)" % (node.type,id(node))
-	
+		return "%s (%s)" % (node, id(node))
+	return "%s (%s)" % (node.type, id(node))	

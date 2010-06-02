@@ -1,19 +1,19 @@
-flysparrow test3; 
+Module test3; 
 variables
-	integer a; 
+	int a; 
 
-function Summation(integer num) returns integer;
+function x(int num) returns int;
 {
 	if num == 1 then 
-		Summation = 1
+		x = 1
 	else 
-		Summation = 2;
+		x = 2;
 }; 
 
 { 
 	A = 20; 
 	writeln(A + 1 * 2); 
-	A = a + Summation(10);
+	A = a + x(10);
 	writeln(a);
 	writeln(A); 
 }.
