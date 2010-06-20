@@ -1,8 +1,8 @@
-flysparrow testvar; 
-variables
-real y;  
-real z;
-int c;
+Module testvar; 
+variables:
+	real y;  
+	real z;
+	int c;
 
 function Add(int j) returns int;
 {
@@ -17,4 +17,4 @@ function Add(int j) returns int;
       writeln(y);
       c = Add(2);
       writeln(c);
-}.
+}

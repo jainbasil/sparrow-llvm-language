@@ -14,9 +14,8 @@ precedence = (
 
 
 def p_program_start(t):
-	'program : header SEMICOLON block DOT'
+	'program : header SEMICOLON block'
 	t[0] = Node('program',t[1],t[3])
-	print str(t[0])
 
 def p_header(t):
 	'header : MODULE identifier'
@@ -29,11 +28,11 @@ def p_block(t):
 	
 	
 def p_variable_declaration_part(t):
-	"""variable_declaration_part : VARIABLES variable_declaration_list
+	"""variable_declaration_part : VARIABLES COLON variable_declaration_list
 	 |
 	"""
 	if len(t) > 1:
-		t[0] = t[2]
+		t[0] = t[3]
 
 def p_variable_declaration_list(t):
 	"""variable_declaration_list : variable_declaration variable_declaration_list

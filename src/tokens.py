@@ -7,10 +7,11 @@ tokens = (
 	'ASSIGNMENT',
 	'SEMICOLON',
 	'COMMA',
+	'COLON',
 
 	# main
 	'MODULE',
-	'DOT',
+#	'DOT',
 	
 	# blocks
 	'VARIABLES',
@@ -65,11 +66,12 @@ tokens = (
 
 
 # Regular statement rules for tokens.
-t_DOT			= r"\."
+#t_DOT			= r"\."
 
-t_ASSIGNMENT	= r"\="
+t_ASSIGNMENT		= r"\="
 t_SEMICOLON		= r";"
 t_COMMA			= r","
+t_COLON			= r":"
 
 t_PLUS			= r"\+"
 t_MINUS			= r"\-"

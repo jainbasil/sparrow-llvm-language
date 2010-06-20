@@ -1,0 +1,2179 @@
+Created by PLY version 3.3 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> header SEMICOLON block
+Rule 2     header -> MODULE identifier
+Rule 3     block -> variable_declaration_part function statement_part
+Rule 4     variable_declaration_part -> VARIABLES COLON variable_declaration_list
+Rule 5     variable_declaration_part -> <empty>
+Rule 6     variable_declaration_list -> variable_declaration variable_declaration_list
+Rule 7     variable_declaration_list -> variable_declaration
+Rule 8     variable_declaration -> type identifier SEMICOLON
+Rule 9     function -> function_declaration SEMICOLON function
+Rule 10    function -> <empty>
+Rule 11    function_declaration -> function_heading SEMICOLON block
+Rule 12    function_heading -> FUNCTION identifier RETURNS type
+Rule 13    function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN RETURNS type
+Rule 14    parameter_list -> parameter COMMA parameter_list
+Rule 15    parameter_list -> parameter
+Rule 16    parameter -> type identifier
+Rule 17    type -> TREAL
+Rule 18    type -> TINTEGER
+Rule 19    type -> TCHAR
+Rule 20    type -> TSTRING
+Rule 21    statement_part -> LCURLY statement_sequence RCURLY
+Rule 22    statement_sequence -> statement SEMICOLON statement_sequence
+Rule 23    statement_sequence -> statement
+Rule 24    statement -> assignment_statement
+Rule 25    statement -> statement_part
+Rule 26    statement -> if_statement
+Rule 27    statement -> while_statement
+Rule 28    statement -> function_call
+Rule 29    statement -> <empty>
+Rule 30    function_call -> identifier LPAREN param_list RPAREN
+Rule 31    function_call -> identifier
+Rule 32    param_list -> param_list COMMA param
+Rule 33    param_list -> param
+Rule 34    param -> expression
+Rule 35    if_statement -> IF expression THEN statement ELSE statement
+Rule 36    if_statement -> IF expression THEN statement
+Rule 37    while_statement -> WHILE expression DO statement
+Rule 38    assignment_statement -> identifier ASSIGNMENT expression
+Rule 39    expression -> expression and_or expression_m
+Rule 40    expression -> expression_m
+Rule 41    expression_m -> expression_s
+Rule 42    expression_m -> expression_m sign expression_s
+Rule 43    expression_s -> element
+Rule 44    expression_s -> expression_s psign element
+Rule 45    and_or -> AND
+Rule 46    and_or -> OR
+Rule 47    psign -> TIMES
+Rule 48    psign -> DIVISION
+Rule 49    sign -> PLUS
+Rule 50    sign -> MINUS
+Rule 51    sign -> MOD
+Rule 52    sign -> EQ
+Rule 53    sign -> NEQ
+Rule 54    sign -> LT
+Rule 55    sign -> LTE
+Rule 56    sign -> GT
+Rule 57    sign -> GTE
+Rule 58    element -> identifier
+Rule 59    element -> real
+Rule 60    element -> integer
+Rule 61    element -> string
+Rule 62    element -> char
+Rule 63    element -> LPAREN expression RPAREN
+Rule 64    element -> NOT element
+Rule 65    element -> function_call_inline
+Rule 66    function_call_inline -> identifier LPAREN param_list RPAREN
+Rule 67    identifier -> IDENTIFIER
+Rule 68    real -> REAL
+Rule 69    integer -> INTEGER
+Rule 70    string -> STRING
+Rule 71    char -> CHAR
+
+Terminals, with rules where they appear
+
+AND                  : 45
+ASSIGNMENT           : 38
+CHAR                 : 71
+COLON                : 4
+COMMA                : 14 32
+DIVISION             : 48
+DO                   : 37
+ELSE                 : 35
+EQ                   : 52
+FUNCTION             : 12 13
+GT                   : 56
+GTE                  : 57
+IDENTIFIER           : 67
+IF                   : 35 36
+INTEGER              : 69
+LCURLY               : 21
+LPAREN               : 13 30 63 66
+LT                   : 54
+LTE                  : 55
+MINUS                : 50
+MOD                  : 51
+MODULE               : 2
+NEQ                  : 53
+NOT                  : 64
+OR                   : 46
+PLUS                 : 49
+RCURLY               : 21
+REAL                 : 68
+RETURNS              : 12 13
+RPAREN               : 13 30 63 66
+SEMICOLON            : 1 8 9 11 22
+STRING               : 70
+TCHAR                : 19
+THEN                 : 35 36
+TIMES                : 47
+TINTEGER             : 18
+TREAL                : 17
+TSTRING              : 20
+VARIABLES            : 4
+WHILE                : 37
+error                : 
+
+Nonterminals, with rules where they appear
+
+and_or               : 39
+assignment_statement : 24
+block                : 1 11
+char                 : 62
+element              : 43 44 64
+expression           : 34 35 36 37 38 39 63
+expression_m         : 39 40 42
+expression_s         : 41 42 44
+function             : 3 9
+function_call        : 28
+function_call_inline : 65
+function_declaration : 9
+function_heading     : 11
+header               : 1
+identifier           : 2 8 12 13 16 30 31 38 58 66
+if_statement         : 26
+integer              : 60
+param                : 32 33
+param_list           : 30 32 66
+parameter            : 14 15
+parameter_list       : 13 14
+program              : 0
+psign                : 44
+real                 : 59
+sign                 : 42
+statement            : 22 23 35 35 36 37
+statement_part       : 3 25
+statement_sequence   : 21 22
+string               : 61
+type                 : 8 12 13 16
+variable_declaration : 6 7
+variable_declaration_list : 4 6
+variable_declaration_part : 3
+while_statement      : 27
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . header SEMICOLON block
+    (2) header -> . MODULE identifier
+
+    MODULE          shift and go to state 1
+
+    header                         shift and go to state 2
+    program                        shift and go to state 3
+
+state 1
+
+    (2) header -> MODULE . identifier
+    (67) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 5
+
+state 2
+
+    (1) program -> header . SEMICOLON block
+
+    SEMICOLON       shift and go to state 6
+
+
+state 3
+
+    (0) S' -> program .
+
+
+
+state 4
+
+    (67) identifier -> IDENTIFIER .
+
+    LPAREN          reduce using rule 67 (identifier -> IDENTIFIER .)
+    TIMES           reduce using rule 67 (identifier -> IDENTIFIER .)
+    DIVISION        reduce using rule 67 (identifier -> IDENTIFIER .)
+    PLUS            reduce using rule 67 (identifier -> IDENTIFIER .)
+    MINUS           reduce using rule 67 (identifier -> IDENTIFIER .)
+    MOD             reduce using rule 67 (identifier -> IDENTIFIER .)
+    EQ              reduce using rule 67 (identifier -> IDENTIFIER .)
+    NEQ             reduce using rule 67 (identifier -> IDENTIFIER .)
+    LT              reduce using rule 67 (identifier -> IDENTIFIER .)
+    LTE             reduce using rule 67 (identifier -> IDENTIFIER .)
+    GT              reduce using rule 67 (identifier -> IDENTIFIER .)
+    GTE             reduce using rule 67 (identifier -> IDENTIFIER .)
+    AND             reduce using rule 67 (identifier -> IDENTIFIER .)
+    OR              reduce using rule 67 (identifier -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 67 (identifier -> IDENTIFIER .)
+    RCURLY          reduce using rule 67 (identifier -> IDENTIFIER .)
+    ELSE            reduce using rule 67 (identifier -> IDENTIFIER .)
+    THEN            reduce using rule 67 (identifier -> IDENTIFIER .)
+    ASSIGNMENT      reduce using rule 67 (identifier -> IDENTIFIER .)
+    DO              reduce using rule 67 (identifier -> IDENTIFIER .)
+    RPAREN          reduce using rule 67 (identifier -> IDENTIFIER .)
+    COMMA           reduce using rule 67 (identifier -> IDENTIFIER .)
+    RETURNS         reduce using rule 67 (identifier -> IDENTIFIER .)
+
+
+state 5
+
+    (2) header -> MODULE identifier .
+
+    SEMICOLON       reduce using rule 2 (header -> MODULE identifier .)
+
+
+state 6
+
+    (1) program -> header SEMICOLON . block
+    (3) block -> . variable_declaration_part function statement_part
+    (4) variable_declaration_part -> . VARIABLES COLON variable_declaration_list
+    (5) variable_declaration_part -> .
+
+    VARIABLES       shift and go to state 8
+    FUNCTION        reduce using rule 5 (variable_declaration_part -> .)
+    LCURLY          reduce using rule 5 (variable_declaration_part -> .)
+
+    variable_declaration_part      shift and go to state 7
+    block                          shift and go to state 9
+
+state 7
+
+    (3) block -> variable_declaration_part . function statement_part
+    (9) function -> . function_declaration SEMICOLON function
+    (10) function -> .
+    (11) function_declaration -> . function_heading SEMICOLON block
+    (12) function_heading -> . FUNCTION identifier RETURNS type
+    (13) function_heading -> . FUNCTION identifier LPAREN parameter_list RPAREN RETURNS type
+
+    LCURLY          reduce using rule 10 (function -> .)
+    FUNCTION        shift and go to state 11
+
+    function                       shift and go to state 10
+    function_declaration           shift and go to state 12
+    function_heading               shift and go to state 13
+
+state 8
+
+    (4) variable_declaration_part -> VARIABLES . COLON variable_declaration_list
+
+    COLON           shift and go to state 14
+
+
+state 9
+
+    (1) program -> header SEMICOLON block .
+
+    $end            reduce using rule 1 (program -> header SEMICOLON block .)
+
+
+state 10
+
+    (3) block -> variable_declaration_part function . statement_part
+    (21) statement_part -> . LCURLY statement_sequence RCURLY
+
+    LCURLY          shift and go to state 16
+
+    statement_part                 shift and go to state 15
+
+state 11
+
+    (12) function_heading -> FUNCTION . identifier RETURNS type
+    (13) function_heading -> FUNCTION . identifier LPAREN parameter_list RPAREN RETURNS type
+    (67) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 17
+
+state 12
+
+    (9) function -> function_declaration . SEMICOLON function
+
+    SEMICOLON       shift and go to state 18
+
+
+state 13
+
+    (11) function_declaration -> function_heading . SEMICOLON block
+
+    SEMICOLON       shift and go to state 19
+
+
+state 14
+
+    (4) variable_declaration_part -> VARIABLES COLON . variable_declaration_list
+    (6) variable_declaration_list -> . variable_declaration variable_declaration_list
+    (7) variable_declaration_list -> . variable_declaration
+    (8) variable_declaration -> . type identifier SEMICOLON
+    (17) type -> . TREAL
+    (18) type -> . TINTEGER
+    (19) type -> . TCHAR
+    (20) type -> . TSTRING
+
+    TREAL           shift and go to state 20
+    TINTEGER        shift and go to state 24
+    TCHAR           shift and go to state 21
+    TSTRING         shift and go to state 23
+
+    type                           shift and go to state 25
+    variable_declaration_list      shift and go to state 22
+    variable_declaration           shift and go to state 26
+
+state 15
+
+    (3) block -> variable_declaration_part function statement_part .
+
+    SEMICOLON       reduce using rule 3 (block -> variable_declaration_part function statement_part .)
+    $end            reduce using rule 3 (block -> variable_declaration_part function statement_part .)
+
+
+state 16
+
+    (21) statement_part -> LCURLY . statement_sequence RCURLY
+    (22) statement_sequence -> . statement SEMICOLON statement_sequence
+    (23) statement_sequence -> . statement
+    (24) statement -> . assignment_statement
+    (25) statement -> . statement_part
+    (26) statement -> . if_statement
+    (27) statement -> . while_statement
+    (28) statement -> . function_call
+    (29) statement -> .
+    (38) assignment_statement -> . identifier ASSIGNMENT expression
+    (21) statement_part -> . LCURLY statement_sequence RCURLY
+    (35) if_statement -> . IF expression THEN statement ELSE statement
+    (36) if_statement -> . IF expression THEN statement
+    (37) while_statement -> . WHILE expression DO statement
+    (30) function_call -> . identifier LPAREN param_list RPAREN
+    (31) function_call -> . identifier
+    (67) identifier -> . IDENTIFIER
+
+    SEMICOLON       reduce using rule 29 (statement -> .)
+    RCURLY          reduce using rule 29 (statement -> .)
+    LCURLY          shift and go to state 16
+    IF              shift and go to state 34
+    WHILE           shift and go to state 29
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 36
+    statement_part                 shift and go to state 30
+    assignment_statement           shift and go to state 31
+    function_call                  shift and go to state 27
+    statement_sequence             shift and go to state 28
+    while_statement                shift and go to state 32
+    statement                      shift and go to state 33
+    if_statement                   shift and go to state 35
+
+state 17
+
+    (12) function_heading -> FUNCTION identifier . RETURNS type
+    (13) function_heading -> FUNCTION identifier . LPAREN parameter_list RPAREN RETURNS type
+
+    RETURNS         shift and go to state 37
+    LPAREN          shift and go to state 38
+
+
+state 18
+
+    (9) function -> function_declaration SEMICOLON . function
+    (9) function -> . function_declaration SEMICOLON function
+    (10) function -> .
+    (11) function_declaration -> . function_heading SEMICOLON block
+    (12) function_heading -> . FUNCTION identifier RETURNS type
+    (13) function_heading -> . FUNCTION identifier LPAREN parameter_list RPAREN RETURNS type
+
+    LCURLY          reduce using rule 10 (function -> .)
+    FUNCTION        shift and go to state 11
+
+    function                       shift and go to state 39
+    function_declaration           shift and go to state 12
+    function_heading               shift and go to state 13
+
+state 19
+
+    (11) function_declaration -> function_heading SEMICOLON . block
+    (3) block -> . variable_declaration_part function statement_part
+    (4) variable_declaration_part -> . VARIABLES COLON variable_declaration_list
+    (5) variable_declaration_part -> .
+
+    VARIABLES       shift and go to state 8
+    FUNCTION        reduce using rule 5 (variable_declaration_part -> .)
+    LCURLY          reduce using rule 5 (variable_declaration_part -> .)
+
+    variable_declaration_part      shift and go to state 7
+    block                          shift and go to state 40
+
+state 20
+
+    (17) type -> TREAL .
+
+    IDENTIFIER      reduce using rule 17 (type -> TREAL .)
+    SEMICOLON       reduce using rule 17 (type -> TREAL .)
+
+
+state 21
+
+    (19) type -> TCHAR .
+
+    IDENTIFIER      reduce using rule 19 (type -> TCHAR .)
+    SEMICOLON       reduce using rule 19 (type -> TCHAR .)
+
+
+state 22
+
+    (4) variable_declaration_part -> VARIABLES COLON variable_declaration_list .
+
+    FUNCTION        reduce using rule 4 (variable_declaration_part -> VARIABLES COLON variable_declaration_list .)
+    LCURLY          reduce using rule 4 (variable_declaration_part -> VARIABLES COLON variable_declaration_list .)
+
+
+state 23
+
+    (20) type -> TSTRING .
+
+    IDENTIFIER      reduce using rule 20 (type -> TSTRING .)
+    SEMICOLON       reduce using rule 20 (type -> TSTRING .)
+
+
+state 24
+
+    (18) type -> TINTEGER .
+
+    IDENTIFIER      reduce using rule 18 (type -> TINTEGER .)
+    SEMICOLON       reduce using rule 18 (type -> TINTEGER .)
+
+
+state 25
+
+    (8) variable_declaration -> type . identifier SEMICOLON
+    (67) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 41
+
+state 26
+
+    (6) variable_declaration_list -> variable_declaration . variable_declaration_list
+    (7) variable_declaration_list -> variable_declaration .
+    (6) variable_declaration_list -> . variable_declaration variable_declaration_list
+    (7) variable_declaration_list -> . variable_declaration
+    (8) variable_declaration -> . type identifier SEMICOLON
+    (17) type -> . TREAL
+    (18) type -> . TINTEGER
+    (19) type -> . TCHAR
+    (20) type -> . TSTRING
+
+    FUNCTION        reduce using rule 7 (variable_declaration_list -> variable_declaration .)
+    LCURLY          reduce using rule 7 (variable_declaration_list -> variable_declaration .)
+    TREAL           shift and go to state 20
+    TINTEGER        shift and go to state 24
+    TCHAR           shift and go to state 21
+    TSTRING         shift and go to state 23
+
+    type                           shift and go to state 25
+    variable_declaration           shift and go to state 26
+    variable_declaration_list      shift and go to state 42
+
+state 27
+
+    (28) statement -> function_call .
+
+    SEMICOLON       reduce using rule 28 (statement -> function_call .)
+    RCURLY          reduce using rule 28 (statement -> function_call .)
+    ELSE            reduce using rule 28 (statement -> function_call .)
+
+
+state 28
+
+    (21) statement_part -> LCURLY statement_sequence . RCURLY
+
+    RCURLY          shift and go to state 43
+
+
+state 29
+
+    (37) while_statement -> WHILE . expression DO statement
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    identifier                     shift and go to state 58
+    expression_s                   shift and go to state 45
+    char                           shift and go to state 46
+    expression_m                   shift and go to state 47
+    integer                        shift and go to state 54
+    element                        shift and go to state 56
+    expression                     shift and go to state 59
+    string                         shift and go to state 52
+
+state 30
+
+    (25) statement -> statement_part .
+
+    SEMICOLON       reduce using rule 25 (statement -> statement_part .)
+    RCURLY          reduce using rule 25 (statement -> statement_part .)
+    ELSE            reduce using rule 25 (statement -> statement_part .)
+
+
+state 31
+
+    (24) statement -> assignment_statement .
+
+    SEMICOLON       reduce using rule 24 (statement -> assignment_statement .)
+    RCURLY          reduce using rule 24 (statement -> assignment_statement .)
+    ELSE            reduce using rule 24 (statement -> assignment_statement .)
+
+
+state 32
+
+    (27) statement -> while_statement .
+
+    SEMICOLON       reduce using rule 27 (statement -> while_statement .)
+    RCURLY          reduce using rule 27 (statement -> while_statement .)
+    ELSE            reduce using rule 27 (statement -> while_statement .)
+
+
+state 33
+
+    (22) statement_sequence -> statement . SEMICOLON statement_sequence
+    (23) statement_sequence -> statement .
+
+    SEMICOLON       shift and go to state 60
+    RCURLY          reduce using rule 23 (statement_sequence -> statement .)
+
+
+state 34
+
+    (35) if_statement -> IF . expression THEN statement ELSE statement
+    (36) if_statement -> IF . expression THEN statement
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    identifier                     shift and go to state 58
+    expression_s                   shift and go to state 45
+    char                           shift and go to state 46
+    expression_m                   shift and go to state 47
+    integer                        shift and go to state 54
+    element                        shift and go to state 56
+    expression                     shift and go to state 61
+    string                         shift and go to state 52
+
+state 35
+
+    (26) statement -> if_statement .
+
+    SEMICOLON       reduce using rule 26 (statement -> if_statement .)
+    RCURLY          reduce using rule 26 (statement -> if_statement .)
+    ELSE            reduce using rule 26 (statement -> if_statement .)
+
+
+state 36
+
+    (38) assignment_statement -> identifier . ASSIGNMENT expression
+    (30) function_call -> identifier . LPAREN param_list RPAREN
+    (31) function_call -> identifier .
+
+    ASSIGNMENT      shift and go to state 62
+    LPAREN          shift and go to state 63
+    SEMICOLON       reduce using rule 31 (function_call -> identifier .)
+    RCURLY          reduce using rule 31 (function_call -> identifier .)
+    ELSE            reduce using rule 31 (function_call -> identifier .)
+
+
+state 37
+
+    (12) function_heading -> FUNCTION identifier RETURNS . type
+    (17) type -> . TREAL
+    (18) type -> . TINTEGER
+    (19) type -> . TCHAR
+    (20) type -> . TSTRING
+
+    TREAL           shift and go to state 20
+    TINTEGER        shift and go to state 24
+    TCHAR           shift and go to state 21
+    TSTRING         shift and go to state 23
+
+    type                           shift and go to state 64
+
+state 38
+
+    (13) function_heading -> FUNCTION identifier LPAREN . parameter_list RPAREN RETURNS type
+    (14) parameter_list -> . parameter COMMA parameter_list
+    (15) parameter_list -> . parameter
+    (16) parameter -> . type identifier
+    (17) type -> . TREAL
+    (18) type -> . TINTEGER
+    (19) type -> . TCHAR
+    (20) type -> . TSTRING
+
+    TREAL           shift and go to state 20
+    TINTEGER        shift and go to state 24
+    TCHAR           shift and go to state 21
+    TSTRING         shift and go to state 23
+
+    parameter                      shift and go to state 66
+    type                           shift and go to state 67
+    parameter_list                 shift and go to state 65
+
+state 39
+
+    (9) function -> function_declaration SEMICOLON function .
+
+    LCURLY          reduce using rule 9 (function -> function_declaration SEMICOLON function .)
+
+
+state 40
+
+    (11) function_declaration -> function_heading SEMICOLON block .
+
+    SEMICOLON       reduce using rule 11 (function_declaration -> function_heading SEMICOLON block .)
+
+
+state 41
+
+    (8) variable_declaration -> type identifier . SEMICOLON
+
+    SEMICOLON       shift and go to state 68
+
+
+state 42
+
+    (6) variable_declaration_list -> variable_declaration variable_declaration_list .
+
+    FUNCTION        reduce using rule 6 (variable_declaration_list -> variable_declaration variable_declaration_list .)
+    LCURLY          reduce using rule 6 (variable_declaration_list -> variable_declaration variable_declaration_list .)
+
+
+state 43
+
+    (21) statement_part -> LCURLY statement_sequence RCURLY .
+
+    SEMICOLON       reduce using rule 21 (statement_part -> LCURLY statement_sequence RCURLY .)
+    RCURLY          reduce using rule 21 (statement_part -> LCURLY statement_sequence RCURLY .)
+    ELSE            reduce using rule 21 (statement_part -> LCURLY statement_sequence RCURLY .)
+    $end            reduce using rule 21 (statement_part -> LCURLY statement_sequence RCURLY .)
+
+
+state 44
+
+    (68) real -> REAL .
+
+    TIMES           reduce using rule 68 (real -> REAL .)
+    DIVISION        reduce using rule 68 (real -> REAL .)
+    PLUS            reduce using rule 68 (real -> REAL .)
+    MINUS           reduce using rule 68 (real -> REAL .)
+    MOD             reduce using rule 68 (real -> REAL .)
+    EQ              reduce using rule 68 (real -> REAL .)
+    NEQ             reduce using rule 68 (real -> REAL .)
+    LT              reduce using rule 68 (real -> REAL .)
+    LTE             reduce using rule 68 (real -> REAL .)
+    GT              reduce using rule 68 (real -> REAL .)
+    GTE             reduce using rule 68 (real -> REAL .)
+    AND             reduce using rule 68 (real -> REAL .)
+    OR              reduce using rule 68 (real -> REAL .)
+    SEMICOLON       reduce using rule 68 (real -> REAL .)
+    RCURLY          reduce using rule 68 (real -> REAL .)
+    ELSE            reduce using rule 68 (real -> REAL .)
+    RPAREN          reduce using rule 68 (real -> REAL .)
+    THEN            reduce using rule 68 (real -> REAL .)
+    DO              reduce using rule 68 (real -> REAL .)
+    COMMA           reduce using rule 68 (real -> REAL .)
+
+
+state 45
+
+    (41) expression_m -> expression_s .
+    (44) expression_s -> expression_s . psign element
+    (47) psign -> . TIMES
+    (48) psign -> . DIVISION
+
+    PLUS            reduce using rule 41 (expression_m -> expression_s .)
+    MINUS           reduce using rule 41 (expression_m -> expression_s .)
+    MOD             reduce using rule 41 (expression_m -> expression_s .)
+    EQ              reduce using rule 41 (expression_m -> expression_s .)
+    NEQ             reduce using rule 41 (expression_m -> expression_s .)
+    LT              reduce using rule 41 (expression_m -> expression_s .)
+    LTE             reduce using rule 41 (expression_m -> expression_s .)
+    GT              reduce using rule 41 (expression_m -> expression_s .)
+    GTE             reduce using rule 41 (expression_m -> expression_s .)
+    AND             reduce using rule 41 (expression_m -> expression_s .)
+    OR              reduce using rule 41 (expression_m -> expression_s .)
+    RPAREN          reduce using rule 41 (expression_m -> expression_s .)
+    COMMA           reduce using rule 41 (expression_m -> expression_s .)
+    SEMICOLON       reduce using rule 41 (expression_m -> expression_s .)
+    RCURLY          reduce using rule 41 (expression_m -> expression_s .)
+    ELSE            reduce using rule 41 (expression_m -> expression_s .)
+    DO              reduce using rule 41 (expression_m -> expression_s .)
+    THEN            reduce using rule 41 (expression_m -> expression_s .)
+    TIMES           shift and go to state 70
+    DIVISION        shift and go to state 69
+
+    psign                          shift and go to state 71
+
+state 46
+
+    (62) element -> char .
+
+    TIMES           reduce using rule 62 (element -> char .)
+    DIVISION        reduce using rule 62 (element -> char .)
+    PLUS            reduce using rule 62 (element -> char .)
+    MINUS           reduce using rule 62 (element -> char .)
+    MOD             reduce using rule 62 (element -> char .)
+    EQ              reduce using rule 62 (element -> char .)
+    NEQ             reduce using rule 62 (element -> char .)
+    LT              reduce using rule 62 (element -> char .)
+    LTE             reduce using rule 62 (element -> char .)
+    GT              reduce using rule 62 (element -> char .)
+    GTE             reduce using rule 62 (element -> char .)
+    THEN            reduce using rule 62 (element -> char .)
+    AND             reduce using rule 62 (element -> char .)
+    OR              reduce using rule 62 (element -> char .)
+    DO              reduce using rule 62 (element -> char .)
+    RPAREN          reduce using rule 62 (element -> char .)
+    SEMICOLON       reduce using rule 62 (element -> char .)
+    RCURLY          reduce using rule 62 (element -> char .)
+    ELSE            reduce using rule 62 (element -> char .)
+    COMMA           reduce using rule 62 (element -> char .)
+
+
+state 47
+
+    (40) expression -> expression_m .
+    (42) expression_m -> expression_m . sign expression_s
+    (49) sign -> . PLUS
+    (50) sign -> . MINUS
+    (51) sign -> . MOD
+    (52) sign -> . EQ
+    (53) sign -> . NEQ
+    (54) sign -> . LT
+    (55) sign -> . LTE
+    (56) sign -> . GT
+    (57) sign -> . GTE
+
+    DO              reduce using rule 40 (expression -> expression_m .)
+    AND             reduce using rule 40 (expression -> expression_m .)
+    OR              reduce using rule 40 (expression -> expression_m .)
+    RPAREN          reduce using rule 40 (expression -> expression_m .)
+    COMMA           reduce using rule 40 (expression -> expression_m .)
+    SEMICOLON       reduce using rule 40 (expression -> expression_m .)
+    RCURLY          reduce using rule 40 (expression -> expression_m .)
+    ELSE            reduce using rule 40 (expression -> expression_m .)
+    THEN            reduce using rule 40 (expression -> expression_m .)
+    PLUS            shift and go to state 77
+    MINUS           shift and go to state 80
+    MOD             shift and go to state 81
+    EQ              shift and go to state 79
+    NEQ             shift and go to state 78
+    LT              shift and go to state 76
+    LTE             shift and go to state 73
+    GT              shift and go to state 72
+    GTE             shift and go to state 74
+
+    sign                           shift and go to state 75
+
+state 48
+
+    (70) string -> STRING .
+
+    TIMES           reduce using rule 70 (string -> STRING .)
+    DIVISION        reduce using rule 70 (string -> STRING .)
+    PLUS            reduce using rule 70 (string -> STRING .)
+    MINUS           reduce using rule 70 (string -> STRING .)
+    MOD             reduce using rule 70 (string -> STRING .)
+    EQ              reduce using rule 70 (string -> STRING .)
+    NEQ             reduce using rule 70 (string -> STRING .)
+    LT              reduce using rule 70 (string -> STRING .)
+    LTE             reduce using rule 70 (string -> STRING .)
+    GT              reduce using rule 70 (string -> STRING .)
+    GTE             reduce using rule 70 (string -> STRING .)
+    AND             reduce using rule 70 (string -> STRING .)
+    OR              reduce using rule 70 (string -> STRING .)
+    RPAREN          reduce using rule 70 (string -> STRING .)
+    COMMA           reduce using rule 70 (string -> STRING .)
+    DO              reduce using rule 70 (string -> STRING .)
+    THEN            reduce using rule 70 (string -> STRING .)
+    SEMICOLON       reduce using rule 70 (string -> STRING .)
+    RCURLY          reduce using rule 70 (string -> STRING .)
+    ELSE            reduce using rule 70 (string -> STRING .)
+
+
+state 49
+
+    (69) integer -> INTEGER .
+
+    TIMES           reduce using rule 69 (integer -> INTEGER .)
+    DIVISION        reduce using rule 69 (integer -> INTEGER .)
+    PLUS            reduce using rule 69 (integer -> INTEGER .)
+    MINUS           reduce using rule 69 (integer -> INTEGER .)
+    MOD             reduce using rule 69 (integer -> INTEGER .)
+    EQ              reduce using rule 69 (integer -> INTEGER .)
+    NEQ             reduce using rule 69 (integer -> INTEGER .)
+    LT              reduce using rule 69 (integer -> INTEGER .)
+    LTE             reduce using rule 69 (integer -> INTEGER .)
+    GT              reduce using rule 69 (integer -> INTEGER .)
+    GTE             reduce using rule 69 (integer -> INTEGER .)
+    AND             reduce using rule 69 (integer -> INTEGER .)
+    OR              reduce using rule 69 (integer -> INTEGER .)
+    RPAREN          reduce using rule 69 (integer -> INTEGER .)
+    COMMA           reduce using rule 69 (integer -> INTEGER .)
+    DO              reduce using rule 69 (integer -> INTEGER .)
+    THEN            reduce using rule 69 (integer -> INTEGER .)
+    SEMICOLON       reduce using rule 69 (integer -> INTEGER .)
+    RCURLY          reduce using rule 69 (integer -> INTEGER .)
+    ELSE            reduce using rule 69 (integer -> INTEGER .)
+
+
+state 50
+
+    (71) char -> CHAR .
+
+    TIMES           reduce using rule 71 (char -> CHAR .)
+    DIVISION        reduce using rule 71 (char -> CHAR .)
+    PLUS            reduce using rule 71 (char -> CHAR .)
+    MINUS           reduce using rule 71 (char -> CHAR .)
+    MOD             reduce using rule 71 (char -> CHAR .)
+    EQ              reduce using rule 71 (char -> CHAR .)
+    NEQ             reduce using rule 71 (char -> CHAR .)
+    LT              reduce using rule 71 (char -> CHAR .)
+    LTE             reduce using rule 71 (char -> CHAR .)
+    GT              reduce using rule 71 (char -> CHAR .)
+    GTE             reduce using rule 71 (char -> CHAR .)
+    DO              reduce using rule 71 (char -> CHAR .)
+    AND             reduce using rule 71 (char -> CHAR .)
+    OR              reduce using rule 71 (char -> CHAR .)
+    THEN            reduce using rule 71 (char -> CHAR .)
+    RPAREN          reduce using rule 71 (char -> CHAR .)
+    SEMICOLON       reduce using rule 71 (char -> CHAR .)
+    RCURLY          reduce using rule 71 (char -> CHAR .)
+    ELSE            reduce using rule 71 (char -> CHAR .)
+    COMMA           reduce using rule 71 (char -> CHAR .)
+
+
+state 51
+
+    (59) element -> real .
+
+    TIMES           reduce using rule 59 (element -> real .)
+    DIVISION        reduce using rule 59 (element -> real .)
+    PLUS            reduce using rule 59 (element -> real .)
+    MINUS           reduce using rule 59 (element -> real .)
+    MOD             reduce using rule 59 (element -> real .)
+    EQ              reduce using rule 59 (element -> real .)
+    NEQ             reduce using rule 59 (element -> real .)
+    LT              reduce using rule 59 (element -> real .)
+    LTE             reduce using rule 59 (element -> real .)
+    GT              reduce using rule 59 (element -> real .)
+    GTE             reduce using rule 59 (element -> real .)
+    THEN            reduce using rule 59 (element -> real .)
+    AND             reduce using rule 59 (element -> real .)
+    OR              reduce using rule 59 (element -> real .)
+    DO              reduce using rule 59 (element -> real .)
+    RPAREN          reduce using rule 59 (element -> real .)
+    SEMICOLON       reduce using rule 59 (element -> real .)
+    RCURLY          reduce using rule 59 (element -> real .)
+    ELSE            reduce using rule 59 (element -> real .)
+    COMMA           reduce using rule 59 (element -> real .)
+
+
+state 52
+
+    (61) element -> string .
+
+    TIMES           reduce using rule 61 (element -> string .)
+    DIVISION        reduce using rule 61 (element -> string .)
+    PLUS            reduce using rule 61 (element -> string .)
+    MINUS           reduce using rule 61 (element -> string .)
+    MOD             reduce using rule 61 (element -> string .)
+    EQ              reduce using rule 61 (element -> string .)
+    NEQ             reduce using rule 61 (element -> string .)
+    LT              reduce using rule 61 (element -> string .)
+    LTE             reduce using rule 61 (element -> string .)
+    GT              reduce using rule 61 (element -> string .)
+    GTE             reduce using rule 61 (element -> string .)
+    THEN            reduce using rule 61 (element -> string .)
+    AND             reduce using rule 61 (element -> string .)
+    OR              reduce using rule 61 (element -> string .)
+    DO              reduce using rule 61 (element -> string .)
+    RPAREN          reduce using rule 61 (element -> string .)
+    SEMICOLON       reduce using rule 61 (element -> string .)
+    RCURLY          reduce using rule 61 (element -> string .)
+    ELSE            reduce using rule 61 (element -> string .)
+    COMMA           reduce using rule 61 (element -> string .)
+
+
+state 53
+
+    (63) element -> LPAREN . expression RPAREN
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    identifier                     shift and go to state 58
+    string                         shift and go to state 52
+    expression_s                   shift and go to state 45
+    element                        shift and go to state 56
+    char                           shift and go to state 46
+    expression_m                   shift and go to state 47
+    integer                        shift and go to state 54
+    expression                     shift and go to state 82
+
+state 54
+
+    (60) element -> integer .
+
+    TIMES           reduce using rule 60 (element -> integer .)
+    DIVISION        reduce using rule 60 (element -> integer .)
+    PLUS            reduce using rule 60 (element -> integer .)
+    MINUS           reduce using rule 60 (element -> integer .)
+    MOD             reduce using rule 60 (element -> integer .)
+    EQ              reduce using rule 60 (element -> integer .)
+    NEQ             reduce using rule 60 (element -> integer .)
+    LT              reduce using rule 60 (element -> integer .)
+    LTE             reduce using rule 60 (element -> integer .)
+    GT              reduce using rule 60 (element -> integer .)
+    GTE             reduce using rule 60 (element -> integer .)
+    THEN            reduce using rule 60 (element -> integer .)
+    AND             reduce using rule 60 (element -> integer .)
+    OR              reduce using rule 60 (element -> integer .)
+    DO              reduce using rule 60 (element -> integer .)
+    RPAREN          reduce using rule 60 (element -> integer .)
+    SEMICOLON       reduce using rule 60 (element -> integer .)
+    RCURLY          reduce using rule 60 (element -> integer .)
+    ELSE            reduce using rule 60 (element -> integer .)
+    COMMA           reduce using rule 60 (element -> integer .)
+
+
+state 55
+
+    (65) element -> function_call_inline .
+
+    TIMES           reduce using rule 65 (element -> function_call_inline .)
+    DIVISION        reduce using rule 65 (element -> function_call_inline .)
+    PLUS            reduce using rule 65 (element -> function_call_inline .)
+    MINUS           reduce using rule 65 (element -> function_call_inline .)
+    MOD             reduce using rule 65 (element -> function_call_inline .)
+    EQ              reduce using rule 65 (element -> function_call_inline .)
+    NEQ             reduce using rule 65 (element -> function_call_inline .)
+    LT              reduce using rule 65 (element -> function_call_inline .)
+    LTE             reduce using rule 65 (element -> function_call_inline .)
+    GT              reduce using rule 65 (element -> function_call_inline .)
+    GTE             reduce using rule 65 (element -> function_call_inline .)
+    THEN            reduce using rule 65 (element -> function_call_inline .)
+    AND             reduce using rule 65 (element -> function_call_inline .)
+    OR              reduce using rule 65 (element -> function_call_inline .)
+    DO              reduce using rule 65 (element -> function_call_inline .)
+    RPAREN          reduce using rule 65 (element -> function_call_inline .)
+    SEMICOLON       reduce using rule 65 (element -> function_call_inline .)
+    RCURLY          reduce using rule 65 (element -> function_call_inline .)
+    ELSE            reduce using rule 65 (element -> function_call_inline .)
+    COMMA           reduce using rule 65 (element -> function_call_inline .)
+
+
+state 56
+
+    (43) expression_s -> element .
+
+    TIMES           reduce using rule 43 (expression_s -> element .)
+    DIVISION        reduce using rule 43 (expression_s -> element .)
+    PLUS            reduce using rule 43 (expression_s -> element .)
+    MINUS           reduce using rule 43 (expression_s -> element .)
+    MOD             reduce using rule 43 (expression_s -> element .)
+    EQ              reduce using rule 43 (expression_s -> element .)
+    NEQ             reduce using rule 43 (expression_s -> element .)
+    LT              reduce using rule 43 (expression_s -> element .)
+    LTE             reduce using rule 43 (expression_s -> element .)
+    GT              reduce using rule 43 (expression_s -> element .)
+    GTE             reduce using rule 43 (expression_s -> element .)
+    AND             reduce using rule 43 (expression_s -> element .)
+    OR              reduce using rule 43 (expression_s -> element .)
+    RPAREN          reduce using rule 43 (expression_s -> element .)
+    COMMA           reduce using rule 43 (expression_s -> element .)
+    SEMICOLON       reduce using rule 43 (expression_s -> element .)
+    RCURLY          reduce using rule 43 (expression_s -> element .)
+    ELSE            reduce using rule 43 (expression_s -> element .)
+    THEN            reduce using rule 43 (expression_s -> element .)
+    DO              reduce using rule 43 (expression_s -> element .)
+
+
+state 57
+
+    (64) element -> NOT . element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    string                         shift and go to state 52
+    element                        shift and go to state 83
+    char                           shift and go to state 46
+    integer                        shift and go to state 54
+    identifier                     shift and go to state 58
+
+state 58
+
+    (58) element -> identifier .
+    (66) function_call_inline -> identifier . LPAREN param_list RPAREN
+
+    TIMES           reduce using rule 58 (element -> identifier .)
+    DIVISION        reduce using rule 58 (element -> identifier .)
+    PLUS            reduce using rule 58 (element -> identifier .)
+    MINUS           reduce using rule 58 (element -> identifier .)
+    MOD             reduce using rule 58 (element -> identifier .)
+    EQ              reduce using rule 58 (element -> identifier .)
+    NEQ             reduce using rule 58 (element -> identifier .)
+    LT              reduce using rule 58 (element -> identifier .)
+    LTE             reduce using rule 58 (element -> identifier .)
+    GT              reduce using rule 58 (element -> identifier .)
+    GTE             reduce using rule 58 (element -> identifier .)
+    THEN            reduce using rule 58 (element -> identifier .)
+    AND             reduce using rule 58 (element -> identifier .)
+    OR              reduce using rule 58 (element -> identifier .)
+    DO              reduce using rule 58 (element -> identifier .)
+    RPAREN          reduce using rule 58 (element -> identifier .)
+    SEMICOLON       reduce using rule 58 (element -> identifier .)
+    RCURLY          reduce using rule 58 (element -> identifier .)
+    ELSE            reduce using rule 58 (element -> identifier .)
+    COMMA           reduce using rule 58 (element -> identifier .)
+    LPAREN          shift and go to state 84
+
+
+state 59
+
+    (37) while_statement -> WHILE expression . DO statement
+    (39) expression -> expression . and_or expression_m
+    (45) and_or -> . AND
+    (46) and_or -> . OR
+
+    DO              shift and go to state 86
+    AND             shift and go to state 85
+    OR              shift and go to state 88
+
+    and_or                         shift and go to state 87
+
+state 60
+
+    (22) statement_sequence -> statement SEMICOLON . statement_sequence
+    (22) statement_sequence -> . statement SEMICOLON statement_sequence
+    (23) statement_sequence -> . statement
+    (24) statement -> . assignment_statement
+    (25) statement -> . statement_part
+    (26) statement -> . if_statement
+    (27) statement -> . while_statement
+    (28) statement -> . function_call
+    (29) statement -> .
+    (38) assignment_statement -> . identifier ASSIGNMENT expression
+    (21) statement_part -> . LCURLY statement_sequence RCURLY
+    (35) if_statement -> . IF expression THEN statement ELSE statement
+    (36) if_statement -> . IF expression THEN statement
+    (37) while_statement -> . WHILE expression DO statement
+    (30) function_call -> . identifier LPAREN param_list RPAREN
+    (31) function_call -> . identifier
+    (67) identifier -> . IDENTIFIER
+
+    SEMICOLON       reduce using rule 29 (statement -> .)
+    RCURLY          reduce using rule 29 (statement -> .)
+    LCURLY          shift and go to state 16
+    IF              shift and go to state 34
+    WHILE           shift and go to state 29
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 36
+    statement_part                 shift and go to state 30
+    assignment_statement           shift and go to state 31
+    function_call                  shift and go to state 27
+    statement_sequence             shift and go to state 89
+    while_statement                shift and go to state 32
+    statement                      shift and go to state 33
+    if_statement                   shift and go to state 35
+
+state 61
+
+    (35) if_statement -> IF expression . THEN statement ELSE statement
+    (36) if_statement -> IF expression . THEN statement
+    (39) expression -> expression . and_or expression_m
+    (45) and_or -> . AND
+    (46) and_or -> . OR
+
+    THEN            shift and go to state 90
+    AND             shift and go to state 85
+    OR              shift and go to state 88
+
+    and_or                         shift and go to state 87
+
+state 62
+
+    (38) assignment_statement -> identifier ASSIGNMENT . expression
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    string                         shift and go to state 52
+    expression_s                   shift and go to state 45
+    char                           shift and go to state 46
+    expression_m                   shift and go to state 47
+    element                        shift and go to state 56
+    integer                        shift and go to state 54
+    identifier                     shift and go to state 58
+    expression                     shift and go to state 91
+
+state 63
+
+    (30) function_call -> identifier LPAREN . param_list RPAREN
+    (32) param_list -> . param_list COMMA param
+    (33) param_list -> . param
+    (34) param -> . expression
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    string                         shift and go to state 52
+    param_list                     shift and go to state 92
+    param                          shift and go to state 93
+    char                           shift and go to state 46
+    expression_s                   shift and go to state 45
+    expression_m                   shift and go to state 47
+    element                        shift and go to state 56
+    integer                        shift and go to state 54
+    identifier                     shift and go to state 58
+    expression                     shift and go to state 94
+
+state 64
+
+    (12) function_heading -> FUNCTION identifier RETURNS type .
+
+    SEMICOLON       reduce using rule 12 (function_heading -> FUNCTION identifier RETURNS type .)
+
+
+state 65
+
+    (13) function_heading -> FUNCTION identifier LPAREN parameter_list . RPAREN RETURNS type
+
+    RPAREN          shift and go to state 95
+
+
+state 66
+
+    (14) parameter_list -> parameter . COMMA parameter_list
+    (15) parameter_list -> parameter .
+
+    COMMA           shift and go to state 96
+    RPAREN          reduce using rule 15 (parameter_list -> parameter .)
+
+
+state 67
+
+    (16) parameter -> type . identifier
+    (67) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 97
+
+state 68
+
+    (8) variable_declaration -> type identifier SEMICOLON .
+
+    TREAL           reduce using rule 8 (variable_declaration -> type identifier SEMICOLON .)
+    TINTEGER        reduce using rule 8 (variable_declaration -> type identifier SEMICOLON .)
+    TCHAR           reduce using rule 8 (variable_declaration -> type identifier SEMICOLON .)
+    TSTRING         reduce using rule 8 (variable_declaration -> type identifier SEMICOLON .)
+    FUNCTION        reduce using rule 8 (variable_declaration -> type identifier SEMICOLON .)
+    LCURLY          reduce using rule 8 (variable_declaration -> type identifier SEMICOLON .)
+
+
+state 69
+
+    (48) psign -> DIVISION .
+
+    LPAREN          reduce using rule 48 (psign -> DIVISION .)
+    NOT             reduce using rule 48 (psign -> DIVISION .)
+    IDENTIFIER      reduce using rule 48 (psign -> DIVISION .)
+    REAL            reduce using rule 48 (psign -> DIVISION .)
+    INTEGER         reduce using rule 48 (psign -> DIVISION .)
+    STRING          reduce using rule 48 (psign -> DIVISION .)
+    CHAR            reduce using rule 48 (psign -> DIVISION .)
+
+
+state 70
+
+    (47) psign -> TIMES .
+
+    LPAREN          reduce using rule 47 (psign -> TIMES .)
+    NOT             reduce using rule 47 (psign -> TIMES .)
+    IDENTIFIER      reduce using rule 47 (psign -> TIMES .)
+    REAL            reduce using rule 47 (psign -> TIMES .)
+    INTEGER         reduce using rule 47 (psign -> TIMES .)
+    STRING          reduce using rule 47 (psign -> TIMES .)
+    CHAR            reduce using rule 47 (psign -> TIMES .)
+
+
+state 71
+
+    (44) expression_s -> expression_s psign . element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    string                         shift and go to state 52
+    element                        shift and go to state 98
+    char                           shift and go to state 46
+    integer                        shift and go to state 54
+    identifier                     shift and go to state 58
+
+state 72
+
+    (56) sign -> GT .
+
+    LPAREN          reduce using rule 56 (sign -> GT .)
+    NOT             reduce using rule 56 (sign -> GT .)
+    IDENTIFIER      reduce using rule 56 (sign -> GT .)
+    REAL            reduce using rule 56 (sign -> GT .)
+    INTEGER         reduce using rule 56 (sign -> GT .)
+    STRING          reduce using rule 56 (sign -> GT .)
+    CHAR            reduce using rule 56 (sign -> GT .)
+
+
+state 73
+
+    (55) sign -> LTE .
+
+    LPAREN          reduce using rule 55 (sign -> LTE .)
+    NOT             reduce using rule 55 (sign -> LTE .)
+    IDENTIFIER      reduce using rule 55 (sign -> LTE .)
+    REAL            reduce using rule 55 (sign -> LTE .)
+    INTEGER         reduce using rule 55 (sign -> LTE .)
+    STRING          reduce using rule 55 (sign -> LTE .)
+    CHAR            reduce using rule 55 (sign -> LTE .)
+
+
+state 74
+
+    (57) sign -> GTE .
+
+    LPAREN          reduce using rule 57 (sign -> GTE .)
+    NOT             reduce using rule 57 (sign -> GTE .)
+    IDENTIFIER      reduce using rule 57 (sign -> GTE .)
+    REAL            reduce using rule 57 (sign -> GTE .)
+    INTEGER         reduce using rule 57 (sign -> GTE .)
+    STRING          reduce using rule 57 (sign -> GTE .)
+    CHAR            reduce using rule 57 (sign -> GTE .)
+
+
+state 75
+
+    (42) expression_m -> expression_m sign . expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    string                         shift and go to state 52
+    expression_s                   shift and go to state 99
+    element                        shift and go to state 56
+    char                           shift and go to state 46
+    integer                        shift and go to state 54
+    identifier                     shift and go to state 58
+
+state 76
+
+    (54) sign -> LT .
+
+    LPAREN          reduce using rule 54 (sign -> LT .)
+    NOT             reduce using rule 54 (sign -> LT .)
+    IDENTIFIER      reduce using rule 54 (sign -> LT .)
+    REAL            reduce using rule 54 (sign -> LT .)
+    INTEGER         reduce using rule 54 (sign -> LT .)
+    STRING          reduce using rule 54 (sign -> LT .)
+    CHAR            reduce using rule 54 (sign -> LT .)
+
+
+state 77
+
+    (49) sign -> PLUS .
+
+    LPAREN          reduce using rule 49 (sign -> PLUS .)
+    NOT             reduce using rule 49 (sign -> PLUS .)
+    IDENTIFIER      reduce using rule 49 (sign -> PLUS .)
+    REAL            reduce using rule 49 (sign -> PLUS .)
+    INTEGER         reduce using rule 49 (sign -> PLUS .)
+    STRING          reduce using rule 49 (sign -> PLUS .)
+    CHAR            reduce using rule 49 (sign -> PLUS .)
+
+
+state 78
+
+    (53) sign -> NEQ .
+
+    LPAREN          reduce using rule 53 (sign -> NEQ .)
+    NOT             reduce using rule 53 (sign -> NEQ .)
+    IDENTIFIER      reduce using rule 53 (sign -> NEQ .)
+    REAL            reduce using rule 53 (sign -> NEQ .)
+    INTEGER         reduce using rule 53 (sign -> NEQ .)
+    STRING          reduce using rule 53 (sign -> NEQ .)
+    CHAR            reduce using rule 53 (sign -> NEQ .)
+
+
+state 79
+
+    (52) sign -> EQ .
+
+    LPAREN          reduce using rule 52 (sign -> EQ .)
+    NOT             reduce using rule 52 (sign -> EQ .)
+    IDENTIFIER      reduce using rule 52 (sign -> EQ .)
+    REAL            reduce using rule 52 (sign -> EQ .)
+    INTEGER         reduce using rule 52 (sign -> EQ .)
+    STRING          reduce using rule 52 (sign -> EQ .)
+    CHAR            reduce using rule 52 (sign -> EQ .)
+
+
+state 80
+
+    (50) sign -> MINUS .
+
+    LPAREN          reduce using rule 50 (sign -> MINUS .)
+    NOT             reduce using rule 50 (sign -> MINUS .)
+    IDENTIFIER      reduce using rule 50 (sign -> MINUS .)
+    REAL            reduce using rule 50 (sign -> MINUS .)
+    INTEGER         reduce using rule 50 (sign -> MINUS .)
+    STRING          reduce using rule 50 (sign -> MINUS .)
+    CHAR            reduce using rule 50 (sign -> MINUS .)
+
+
+state 81
+
+    (51) sign -> MOD .
+
+    LPAREN          reduce using rule 51 (sign -> MOD .)
+    NOT             reduce using rule 51 (sign -> MOD .)
+    IDENTIFIER      reduce using rule 51 (sign -> MOD .)
+    REAL            reduce using rule 51 (sign -> MOD .)
+    INTEGER         reduce using rule 51 (sign -> MOD .)
+    STRING          reduce using rule 51 (sign -> MOD .)
+    CHAR            reduce using rule 51 (sign -> MOD .)
+
+
+state 82
+
+    (63) element -> LPAREN expression . RPAREN
+    (39) expression -> expression . and_or expression_m
+    (45) and_or -> . AND
+    (46) and_or -> . OR
+
+    RPAREN          shift and go to state 100
+    AND             shift and go to state 85
+    OR              shift and go to state 88
+
+    and_or                         shift and go to state 87
+
+state 83
+
+    (64) element -> NOT element .
+
+    TIMES           reduce using rule 64 (element -> NOT element .)
+    DIVISION        reduce using rule 64 (element -> NOT element .)
+    PLUS            reduce using rule 64 (element -> NOT element .)
+    MINUS           reduce using rule 64 (element -> NOT element .)
+    MOD             reduce using rule 64 (element -> NOT element .)
+    EQ              reduce using rule 64 (element -> NOT element .)
+    NEQ             reduce using rule 64 (element -> NOT element .)
+    LT              reduce using rule 64 (element -> NOT element .)
+    LTE             reduce using rule 64 (element -> NOT element .)
+    GT              reduce using rule 64 (element -> NOT element .)
+    GTE             reduce using rule 64 (element -> NOT element .)
+    THEN            reduce using rule 64 (element -> NOT element .)
+    AND             reduce using rule 64 (element -> NOT element .)
+    OR              reduce using rule 64 (element -> NOT element .)
+    DO              reduce using rule 64 (element -> NOT element .)
+    RPAREN          reduce using rule 64 (element -> NOT element .)
+    SEMICOLON       reduce using rule 64 (element -> NOT element .)
+    RCURLY          reduce using rule 64 (element -> NOT element .)
+    ELSE            reduce using rule 64 (element -> NOT element .)
+    COMMA           reduce using rule 64 (element -> NOT element .)
+
+
+state 84
+
+    (66) function_call_inline -> identifier LPAREN . param_list RPAREN
+    (32) param_list -> . param_list COMMA param
+    (33) param_list -> . param
+    (34) param -> . expression
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    string                         shift and go to state 52
+    param_list                     shift and go to state 101
+    param                          shift and go to state 93
+    char                           shift and go to state 46
+    expression_s                   shift and go to state 45
+    expression_m                   shift and go to state 47
+    element                        shift and go to state 56
+    integer                        shift and go to state 54
+    identifier                     shift and go to state 58
+    expression                     shift and go to state 94
+
+state 85
+
+    (45) and_or -> AND .
+
+    LPAREN          reduce using rule 45 (and_or -> AND .)
+    NOT             reduce using rule 45 (and_or -> AND .)
+    IDENTIFIER      reduce using rule 45 (and_or -> AND .)
+    REAL            reduce using rule 45 (and_or -> AND .)
+    INTEGER         reduce using rule 45 (and_or -> AND .)
+    STRING          reduce using rule 45 (and_or -> AND .)
+    CHAR            reduce using rule 45 (and_or -> AND .)
+
+
+state 86
+
+    (37) while_statement -> WHILE expression DO . statement
+    (24) statement -> . assignment_statement
+    (25) statement -> . statement_part
+    (26) statement -> . if_statement
+    (27) statement -> . while_statement
+    (28) statement -> . function_call
+    (29) statement -> .
+    (38) assignment_statement -> . identifier ASSIGNMENT expression
+    (21) statement_part -> . LCURLY statement_sequence RCURLY
+    (35) if_statement -> . IF expression THEN statement ELSE statement
+    (36) if_statement -> . IF expression THEN statement
+    (37) while_statement -> . WHILE expression DO statement
+    (30) function_call -> . identifier LPAREN param_list RPAREN
+    (31) function_call -> . identifier
+    (67) identifier -> . IDENTIFIER
+
+    SEMICOLON       reduce using rule 29 (statement -> .)
+    RCURLY          reduce using rule 29 (statement -> .)
+    ELSE            reduce using rule 29 (statement -> .)
+    LCURLY          shift and go to state 16
+    IF              shift and go to state 34
+    WHILE           shift and go to state 29
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 36
+    statement_part                 shift and go to state 30
+    assignment_statement           shift and go to state 31
+    function_call                  shift and go to state 27
+    while_statement                shift and go to state 32
+    statement                      shift and go to state 102
+    if_statement                   shift and go to state 35
+
+state 87
+
+    (39) expression -> expression and_or . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    identifier                     shift and go to state 58
+    string                         shift and go to state 52
+    expression_s                   shift and go to state 45
+    element                        shift and go to state 56
+    char                           shift and go to state 46
+    expression_m                   shift and go to state 103
+    integer                        shift and go to state 54
+
+state 88
+
+    (46) and_or -> OR .
+
+    LPAREN          reduce using rule 46 (and_or -> OR .)
+    NOT             reduce using rule 46 (and_or -> OR .)
+    IDENTIFIER      reduce using rule 46 (and_or -> OR .)
+    REAL            reduce using rule 46 (and_or -> OR .)
+    INTEGER         reduce using rule 46 (and_or -> OR .)
+    STRING          reduce using rule 46 (and_or -> OR .)
+    CHAR            reduce using rule 46 (and_or -> OR .)
+
+
+state 89
+
+    (22) statement_sequence -> statement SEMICOLON statement_sequence .
+
+    RCURLY          reduce using rule 22 (statement_sequence -> statement SEMICOLON statement_sequence .)
+
+
+state 90
+
+    (35) if_statement -> IF expression THEN . statement ELSE statement
+    (36) if_statement -> IF expression THEN . statement
+    (24) statement -> . assignment_statement
+    (25) statement -> . statement_part
+    (26) statement -> . if_statement
+    (27) statement -> . while_statement
+    (28) statement -> . function_call
+    (29) statement -> .
+    (38) assignment_statement -> . identifier ASSIGNMENT expression
+    (21) statement_part -> . LCURLY statement_sequence RCURLY
+    (35) if_statement -> . IF expression THEN statement ELSE statement
+    (36) if_statement -> . IF expression THEN statement
+    (37) while_statement -> . WHILE expression DO statement
+    (30) function_call -> . identifier LPAREN param_list RPAREN
+    (31) function_call -> . identifier
+    (67) identifier -> . IDENTIFIER
+
+    SEMICOLON       reduce using rule 29 (statement -> .)
+    RCURLY          reduce using rule 29 (statement -> .)
+    ELSE            reduce using rule 29 (statement -> .)
+    LCURLY          shift and go to state 16
+    IF              shift and go to state 34
+    WHILE           shift and go to state 29
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 36
+    statement_part                 shift and go to state 30
+    assignment_statement           shift and go to state 31
+    function_call                  shift and go to state 27
+    while_statement                shift and go to state 32
+    statement                      shift and go to state 104
+    if_statement                   shift and go to state 35
+
+state 91
+
+    (38) assignment_statement -> identifier ASSIGNMENT expression .
+    (39) expression -> expression . and_or expression_m
+    (45) and_or -> . AND
+    (46) and_or -> . OR
+
+    SEMICOLON       reduce using rule 38 (assignment_statement -> identifier ASSIGNMENT expression .)
+    RCURLY          reduce using rule 38 (assignment_statement -> identifier ASSIGNMENT expression .)
+    ELSE            reduce using rule 38 (assignment_statement -> identifier ASSIGNMENT expression .)
+    AND             shift and go to state 85
+    OR              shift and go to state 88
+
+    and_or                         shift and go to state 87
+
+state 92
+
+    (30) function_call -> identifier LPAREN param_list . RPAREN
+    (32) param_list -> param_list . COMMA param
+
+    RPAREN          shift and go to state 105
+    COMMA           shift and go to state 106
+
+
+state 93
+
+    (33) param_list -> param .
+
+    RPAREN          reduce using rule 33 (param_list -> param .)
+    COMMA           reduce using rule 33 (param_list -> param .)
+
+
+state 94
+
+    (34) param -> expression .
+    (39) expression -> expression . and_or expression_m
+    (45) and_or -> . AND
+    (46) and_or -> . OR
+
+    RPAREN          reduce using rule 34 (param -> expression .)
+    COMMA           reduce using rule 34 (param -> expression .)
+    AND             shift and go to state 85
+    OR              shift and go to state 88
+
+    and_or                         shift and go to state 87
+
+state 95
+
+    (13) function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN . RETURNS type
+
+    RETURNS         shift and go to state 107
+
+
+state 96
+
+    (14) parameter_list -> parameter COMMA . parameter_list
+    (14) parameter_list -> . parameter COMMA parameter_list
+    (15) parameter_list -> . parameter
+    (16) parameter -> . type identifier
+    (17) type -> . TREAL
+    (18) type -> . TINTEGER
+    (19) type -> . TCHAR
+    (20) type -> . TSTRING
+
+    TREAL           shift and go to state 20
+    TINTEGER        shift and go to state 24
+    TCHAR           shift and go to state 21
+    TSTRING         shift and go to state 23
+
+    type                           shift and go to state 67
+    parameter                      shift and go to state 66
+    parameter_list                 shift and go to state 108
+
+state 97
+
+    (16) parameter -> type identifier .
+
+    COMMA           reduce using rule 16 (parameter -> type identifier .)
+    RPAREN          reduce using rule 16 (parameter -> type identifier .)
+
+
+state 98
+
+    (44) expression_s -> expression_s psign element .
+
+    TIMES           reduce using rule 44 (expression_s -> expression_s psign element .)
+    DIVISION        reduce using rule 44 (expression_s -> expression_s psign element .)
+    PLUS            reduce using rule 44 (expression_s -> expression_s psign element .)
+    MINUS           reduce using rule 44 (expression_s -> expression_s psign element .)
+    MOD             reduce using rule 44 (expression_s -> expression_s psign element .)
+    EQ              reduce using rule 44 (expression_s -> expression_s psign element .)
+    NEQ             reduce using rule 44 (expression_s -> expression_s psign element .)
+    LT              reduce using rule 44 (expression_s -> expression_s psign element .)
+    LTE             reduce using rule 44 (expression_s -> expression_s psign element .)
+    GT              reduce using rule 44 (expression_s -> expression_s psign element .)
+    GTE             reduce using rule 44 (expression_s -> expression_s psign element .)
+    AND             reduce using rule 44 (expression_s -> expression_s psign element .)
+    OR              reduce using rule 44 (expression_s -> expression_s psign element .)
+    RPAREN          reduce using rule 44 (expression_s -> expression_s psign element .)
+    COMMA           reduce using rule 44 (expression_s -> expression_s psign element .)
+    SEMICOLON       reduce using rule 44 (expression_s -> expression_s psign element .)
+    RCURLY          reduce using rule 44 (expression_s -> expression_s psign element .)
+    ELSE            reduce using rule 44 (expression_s -> expression_s psign element .)
+    THEN            reduce using rule 44 (expression_s -> expression_s psign element .)
+    DO              reduce using rule 44 (expression_s -> expression_s psign element .)
+
+
+state 99
+
+    (42) expression_m -> expression_m sign expression_s .
+    (44) expression_s -> expression_s . psign element
+    (47) psign -> . TIMES
+    (48) psign -> . DIVISION
+
+    PLUS            reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    MINUS           reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    MOD             reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    EQ              reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    NEQ             reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    LT              reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    LTE             reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    GT              reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    GTE             reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    AND             reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    OR              reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    RPAREN          reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    COMMA           reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    SEMICOLON       reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    RCURLY          reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    ELSE            reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    DO              reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    THEN            reduce using rule 42 (expression_m -> expression_m sign expression_s .)
+    TIMES           shift and go to state 70
+    DIVISION        shift and go to state 69
+
+    psign                          shift and go to state 71
+
+state 100
+
+    (63) element -> LPAREN expression RPAREN .
+
+    TIMES           reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    DIVISION        reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    MOD             reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    EQ              reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    NEQ             reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    LT              reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    LTE             reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    GT              reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    GTE             reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    THEN            reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    AND             reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    OR              reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    DO              reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    RCURLY          reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    ELSE            reduce using rule 63 (element -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 63 (element -> LPAREN expression RPAREN .)
+
+
+state 101
+
+    (66) function_call_inline -> identifier LPAREN param_list . RPAREN
+    (32) param_list -> param_list . COMMA param
+
+    RPAREN          shift and go to state 109
+    COMMA           shift and go to state 106
+
+
+state 102
+
+    (37) while_statement -> WHILE expression DO statement .
+
+    SEMICOLON       reduce using rule 37 (while_statement -> WHILE expression DO statement .)
+    RCURLY          reduce using rule 37 (while_statement -> WHILE expression DO statement .)
+    ELSE            reduce using rule 37 (while_statement -> WHILE expression DO statement .)
+
+
+state 103
+
+    (39) expression -> expression and_or expression_m .
+    (42) expression_m -> expression_m . sign expression_s
+    (49) sign -> . PLUS
+    (50) sign -> . MINUS
+    (51) sign -> . MOD
+    (52) sign -> . EQ
+    (53) sign -> . NEQ
+    (54) sign -> . LT
+    (55) sign -> . LTE
+    (56) sign -> . GT
+    (57) sign -> . GTE
+
+    DO              reduce using rule 39 (expression -> expression and_or expression_m .)
+    AND             reduce using rule 39 (expression -> expression and_or expression_m .)
+    OR              reduce using rule 39 (expression -> expression and_or expression_m .)
+    RPAREN          reduce using rule 39 (expression -> expression and_or expression_m .)
+    COMMA           reduce using rule 39 (expression -> expression and_or expression_m .)
+    SEMICOLON       reduce using rule 39 (expression -> expression and_or expression_m .)
+    RCURLY          reduce using rule 39 (expression -> expression and_or expression_m .)
+    ELSE            reduce using rule 39 (expression -> expression and_or expression_m .)
+    THEN            reduce using rule 39 (expression -> expression and_or expression_m .)
+    PLUS            shift and go to state 77
+    MINUS           shift and go to state 80
+    MOD             shift and go to state 81
+    EQ              shift and go to state 79
+    NEQ             shift and go to state 78
+    LT              shift and go to state 76
+    LTE             shift and go to state 73
+    GT              shift and go to state 72
+    GTE             shift and go to state 74
+
+    sign                           shift and go to state 75
+
+state 104
+
+    (35) if_statement -> IF expression THEN statement . ELSE statement
+    (36) if_statement -> IF expression THEN statement .
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELSE            shift and go to state 110
+    SEMICOLON       reduce using rule 36 (if_statement -> IF expression THEN statement .)
+    RCURLY          reduce using rule 36 (if_statement -> IF expression THEN statement .)
+
+  ! ELSE            [ reduce using rule 36 (if_statement -> IF expression THEN statement .) ]
+
+
+state 105
+
+    (30) function_call -> identifier LPAREN param_list RPAREN .
+
+    SEMICOLON       reduce using rule 30 (function_call -> identifier LPAREN param_list RPAREN .)
+    RCURLY          reduce using rule 30 (function_call -> identifier LPAREN param_list RPAREN .)
+    ELSE            reduce using rule 30 (function_call -> identifier LPAREN param_list RPAREN .)
+
+
+state 106
+
+    (32) param_list -> param_list COMMA . param
+    (34) param -> . expression
+    (39) expression -> . expression and_or expression_m
+    (40) expression -> . expression_m
+    (41) expression_m -> . expression_s
+    (42) expression_m -> . expression_m sign expression_s
+    (43) expression_s -> . element
+    (44) expression_s -> . expression_s psign element
+    (58) element -> . identifier
+    (59) element -> . real
+    (60) element -> . integer
+    (61) element -> . string
+    (62) element -> . char
+    (63) element -> . LPAREN expression RPAREN
+    (64) element -> . NOT element
+    (65) element -> . function_call_inline
+    (67) identifier -> . IDENTIFIER
+    (68) real -> . REAL
+    (69) integer -> . INTEGER
+    (70) string -> . STRING
+    (71) char -> . CHAR
+    (66) function_call_inline -> . identifier LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 53
+    NOT             shift and go to state 57
+    IDENTIFIER      shift and go to state 4
+    REAL            shift and go to state 44
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 48
+    CHAR            shift and go to state 50
+
+    real                           shift and go to state 51
+    function_call_inline           shift and go to state 55
+    identifier                     shift and go to state 58
+    string                         shift and go to state 52
+    param                          shift and go to state 111
+    char                           shift and go to state 46
+    expression_s                   shift and go to state 45
+    expression_m                   shift and go to state 47
+    integer                        shift and go to state 54
+    element                        shift and go to state 56
+    expression                     shift and go to state 94
+
+state 107
+
+    (13) function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN RETURNS . type
+    (17) type -> . TREAL
+    (18) type -> . TINTEGER
+    (19) type -> . TCHAR
+    (20) type -> . TSTRING
+
+    TREAL           shift and go to state 20
+    TINTEGER        shift and go to state 24
+    TCHAR           shift and go to state 21
+    TSTRING         shift and go to state 23
+
+    type                           shift and go to state 112
+
+state 108
+
+    (14) parameter_list -> parameter COMMA parameter_list .
+
+    RPAREN          reduce using rule 14 (parameter_list -> parameter COMMA parameter_list .)
+
+
+state 109
+
+    (66) function_call_inline -> identifier LPAREN param_list RPAREN .
+
+    TIMES           reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    DIVISION        reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    PLUS            reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    MINUS           reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    MOD             reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    EQ              reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    NEQ             reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    LT              reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    LTE             reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    GT              reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    GTE             reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    AND             reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    OR              reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    RPAREN          reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    COMMA           reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    THEN            reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    DO              reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    SEMICOLON       reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    RCURLY          reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+    ELSE            reduce using rule 66 (function_call_inline -> identifier LPAREN param_list RPAREN .)
+
+
+state 110
+
+    (35) if_statement -> IF expression THEN statement ELSE . statement
+    (24) statement -> . assignment_statement
+    (25) statement -> . statement_part
+    (26) statement -> . if_statement
+    (27) statement -> . while_statement
+    (28) statement -> . function_call
+    (29) statement -> .
+    (38) assignment_statement -> . identifier ASSIGNMENT expression
+    (21) statement_part -> . LCURLY statement_sequence RCURLY
+    (35) if_statement -> . IF expression THEN statement ELSE statement
+    (36) if_statement -> . IF expression THEN statement
+    (37) while_statement -> . WHILE expression DO statement
+    (30) function_call -> . identifier LPAREN param_list RPAREN
+    (31) function_call -> . identifier
+    (67) identifier -> . IDENTIFIER
+
+    SEMICOLON       reduce using rule 29 (statement -> .)
+    RCURLY          reduce using rule 29 (statement -> .)
+    ELSE            reduce using rule 29 (statement -> .)
+    LCURLY          shift and go to state 16
+    IF              shift and go to state 34
+    WHILE           shift and go to state 29
+    IDENTIFIER      shift and go to state 4
+
+    identifier                     shift and go to state 36
+    statement_part                 shift and go to state 30
+    assignment_statement           shift and go to state 31
+    function_call                  shift and go to state 27
+    while_statement                shift and go to state 32
+    statement                      shift and go to state 113
+    if_statement                   shift and go to state 35
+
+state 111
+
+    (32) param_list -> param_list COMMA param .
+
+    RPAREN          reduce using rule 32 (param_list -> param_list COMMA param .)
+    COMMA           reduce using rule 32 (param_list -> param_list COMMA param .)
+
+
+state 112
+
+    (13) function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN RETURNS type .
+
+    SEMICOLON       reduce using rule 13 (function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN RETURNS type .)
+
+
+state 113
+
+    (35) if_statement -> IF expression THEN statement ELSE statement .
+
+    SEMICOLON       reduce using rule 35 (if_statement -> IF expression THEN statement ELSE statement .)
+    RCURLY          reduce using rule 35 (if_statement -> IF expression THEN statement ELSE statement .)
+    ELSE            reduce using rule 35 (if_statement -> IF expression THEN statement ELSE statement .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ELSE in state 104 resolved as shift
